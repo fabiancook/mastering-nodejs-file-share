@@ -1,0 +1,40 @@
+{
+  "name": "file-share",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Fabian Cook"
+  ],
+  "license": "Apache-2.0",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.0",
+    "angular-ui-router": "^0.2.18",
+    "bootstrap": "^3.3.6",
+    "angular-bootstrap": "^1.2.1",
+    "jquery": "^2.2.1",
+    "lodash": "^4.5.1",
+    "angular-socket-io": "^0.7.0",
+    "socket.io-client": "^1.4.5",
+    "swagger-js": "^2.1.11",
+    "moment": "^2.11.2",
+    "angular-cookies": "^1.5.0",
+    "angular-jwt": "^0.0.9",
+    "auth0-angular": "4.1.0",
+    "auth0-lock": "8.2.3",
+    "auth0.js": "6.8.0",
+    "a0-angular-storage": "^0.0.13"
+  },
+  "resolutions": {
+    "angular": "1.5.0"
+  }
+}

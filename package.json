@@ -1,0 +1,25 @@
+{
+  "name": "file-share",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "m",
+    "start": "node --harmony_default_parameters --harmony index.js | ./node_modules/.bin/bunyan"
+  },
+  "author": "Fabian Cook",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "bunyan": "^1.7.0",
+    "config": "^1.19.0",
+    "express-jwt": "^3.3.0",
+    "glob": "^7.0.0",
+    "mongodb": "^2.1.7",
+    "morgan": "^1.7.0",
+    "node-static": "^0.7.7",
+    "passport": "^0.3.2",
+    "q": "^1.4.1",
+    "request-promise": "^2.0.1",
+    "restify": "^4.0.4"
+  }
+}

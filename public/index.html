@@ -1,0 +1,79 @@
+<!--
+Copyright 2016 Packt Publishing
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="ngFileShare" ng-controller="AppCtrl">
+<head>
+    <meta charset="UTF-8"/>
+    <title>{{ pageTitle || 'File Share' }}</title>
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="styles/main.css" type="text/css" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">File Share</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#/">Home</a></li>
+                    <li><a href="#" ng-click="logout()">Logout</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="main-view" ui-view="main">
+
+        </div>
+    </div>
+
+    <!-- Vendor -->
+    <script src="vendor/jquery/dist/jquery.min.js" type="application/javascript"></script>
+    <script src="vendor/angular/angular.min.js" type="application/javascript"></script>
+    <script src="vendor/angular-ui-router/release/angular-ui-router.min.js" type="application/javascript"></script>
+    <script src="vendor/bootstrap/dist/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="vendor/angular-bootstrap/ui-bootstrap.min.js" type="application/javascript"></script>
+    <script src="vendor/angular-cookies/angular-cookies.min.js" type="application/javascript"></script>
+    <script src="vendor/auth0-lock/build/auth0-lock.min.js" type="application/javascript"></script>
+    <script src="vendor/a0-angular-storage/dist/angular-storage.min.js" type="application/javascript"></script>
+    <script src="vendor/angular-jwt/dist/angular-jwt.min.js" type="application/javascript"></script>
+    <script src="vendor/auth0-angular/build/auth0-angular.min.js" type="application/javascript"></script>
+
+
+    <!-- App -->
+    <script src="app/app.js" type="application/javascript"></script>
+
+    <!-- App Controllers -->
+    <script src="app/home/home.js" type="application/javascript"></script>
+    <script src="app/login/login.js" type="application/javascript"></script>
+
+    <!-- App Directives -->
+
+    <!-- App Factories/Service -->
+
+</body>
+</html>
