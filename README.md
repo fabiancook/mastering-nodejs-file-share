@@ -23,7 +23,7 @@ If you find any issues with this code, or the Mastering Node.js Video Course, pl
 
 ## License
 
-Copyright © 2012 Packt Publishing
+Copyright © 2016 Packt Publishing
 
 Node.js Essentials code examples are under the Apache 2.0 license. See the
 [LICENSE](LICENSE) file for details.
