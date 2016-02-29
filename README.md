@@ -10,7 +10,7 @@ This is currently WIP
 
 Node.js version 5.3 or above is required for all these examples (lower versions will most likely work, however this is untested)
 
-If you haven't already please see [Configuration](config/README.md)
+If you haven't already please see [Configuration](https://github.com/fabiancook/mastering-nodejs-file-share/blob/master/config/README.md)
 
 ```
 npm install
@@ -26,4 +26,4 @@ If you find any issues with this code, or the Mastering Node.js Video Course, pl
 Copyright © 2016 Packt Publishing
 
 Node.js Essentials code examples are under the Apache 2.0 license. See the
-[LICENSE](LICENSE) file for details.
+[LICENSE](https://github.com/fabiancook/mastering-nodejs-file-share/blob/master/LICENCE) file for details.
