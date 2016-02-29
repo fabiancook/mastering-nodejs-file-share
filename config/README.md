@@ -14,9 +14,6 @@ The structure for these files are:
       "format": "common"
     }
   },
-  "jwt": {
-    "pepper": ""
-  },
   "httpAuth0": {
     "secret": {
       "contents": "",
