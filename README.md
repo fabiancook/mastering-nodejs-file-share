@@ -25,5 +25,5 @@ If you find any issues with this code, or the Mastering Node.js Video Course, pl
 
 Copyright © 2016 Packt Publishing
 
-Node.js Essentials code examples are under the Apache 2.0 license. See the
+Mastering Node.js code examples are under the Apache 2.0 license. See the
 [LICENSE](https://github.com/fabiancook/mastering-nodejs-file-share/blob/master/LICENCE) file for details.
