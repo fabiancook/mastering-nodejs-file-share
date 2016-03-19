@@ -21,9 +21,11 @@
     'auth0',
     'angular-storage',
     'angular-jwt',
+    'btford.socket-io',
 
     'ngFileShare.home',
-    'ngFileShare.login'
+    'ngFileShare.login',
+    'ngFileShare.sockets'
   ]);
 
   module.constant('Config', {
@@ -50,7 +52,7 @@
     auth.hookEvents();
   });
 
-  module.controller('AppCtrl', ['$scope', 'auth', 'store', '$location', function ($scope, auth, store, $location, auth) {
+  module.controller('AppCtrl', ['$scope', 'auth', 'store', '$location', 'socketFactory', '$window', 'Socket', function ($scope, auth, store, $location, socketFactory, $window, Socket) {
     $scope.$on('$stateChangeSuccess', function(event, toState){
       var pageTitle = 'File Share';
       if(toState.data && toState.data.pageTitle) {
@@ -82,6 +84,14 @@
     };
 
     $scope.auth = auth;
+
+    const socket = Socket.create('/comment');
+    socket.emit('message', 'Hello from the client');
+    socket.on('message', function(comment) {
+      console.log(arguments);
+    });
+
+
   }])
 
 }(angular));

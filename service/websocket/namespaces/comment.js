@@ -14,5 +14,13 @@
  limitations under the License.
  */
 
-exports.create = require('./create');
-exports.getProfile = require('./get-profile');
+exports = module.exports = function(io) {
+  io.of('/comment').on('connection', exports.listener);
+};
+
+exports.listener = function(socket) {
+  socket.on('message', function(){
+    console.log(arguments);
+  });
+  socket.emit('message', 'Hello from the server', socket.user);
+};

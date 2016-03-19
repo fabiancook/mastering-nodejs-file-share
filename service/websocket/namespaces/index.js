@@ -14,5 +14,12 @@
  limitations under the License.
  */
 
-exports.create = require('./create');
-exports.getProfile = require('./get-profile');
+const namespaces = [
+  require('./comment')
+];
+
+exports = module.exports = function(io) {
+  namespaces.forEach(function(namespace){
+    namespace(io);
+  });
+};

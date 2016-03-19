@@ -28,7 +28,8 @@ const routes = require('./routes'),
       fs = require('fs'),
       Request = require('request-promise'),
       UnauthorizedError = ('express-jwt/lib/errors/UnauthorizedError'),
-      User = require('../implementation/user/index');
+      User = require('../implementation/user/index'),
+      WebSocket = require('../websocket');
 
 exports.start = function(){
   return exports.initializeServer();
@@ -37,11 +38,14 @@ exports.start = function(){
 exports.initializeServer = function(){
   const server = exports.createServer();
 
+  WebSocket.start(server);
+
   exports.addLogging(server);
   exports.initializeBaseMiddleware(server);
   exports.initializePublicStatic(server);
   exports.initializeAuthentication(server);
   exports.initializeRoutes(server);
+
   exports.listen(server);
 
   return server;
@@ -170,15 +174,7 @@ exports.getUserProfile = function(request, response, next) {
   } catch(e) {
     return next(e);
   }
-  const options = {
-    method: 'GET',
-    url: request.user.iss + 'tokeninfo',
-    qs: {
-      id_token: token
-    },
-    json: true
-  };
-  Request(options)
+  return User.getProfile(token)
     .then(function(user){
       request.user = user;
       return User.create(user);
