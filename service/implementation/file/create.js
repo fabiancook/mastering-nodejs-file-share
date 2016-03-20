@@ -16,18 +16,18 @@
 const Update = require('./update'),
       Data   = require('../../data');
 
-exports = exports.module = function(metadata, stream, user){
+exports = module.exports = function(metadata, body, user){
   const document = exports.createDocument(metadata, user);
-
   return Data.Files.insert(document)
     .then(function(document) {
-      return Update(document._id, metadata, stream, user);
+      return Update(document._id, metadata, body, user);
     });
 };
 
 exports.createDocument = function(metadata, user) {
   return {
-    metadata: metadata,
+    name: metadata.filename,
+    contentType: metadata.contentType,
     user: {
       _id: user._id
     },

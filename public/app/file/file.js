@@ -14,7 +14,12 @@
  limitations under the License.
  */
 
-exports.create = require('./create');
-exports.update = require('./update');
-exports.list = require('./list');
-exports.getRevision = require('./get-revision');
+(function(angular){
+  angular.module('ngFileShare.file', [
+    'ui.router',
+    'auth0',
+    'ngFileShare.file.create',
+    'ngFileShare.file.list',
+    'ngFileShare.file.update'
+  ]);
+}(angular));

@@ -14,22 +14,28 @@
  limitations under the License.
  */
 
-const Data = require('../../data'),
-      Get = require('./get');
+(function(angular){
+  const module = angular.module('ngFileShare.file.update', [
+    'ui.router',
+    'auth0'
+  ]);
 
-exports = module.exports = function(user) {
-  return Get(user.user_id, {_id: 1})
-    .then(function(result){
-      user._id = result._id;
-      return Data.Users.update({_id: result._id}, { $set: user });
-    })
-    .catch(function(error) {
-      if(error.message !== 'Not Found'){
-        throw error;
+  module.config(function($stateProvider){
+    $stateProvider.state('file_update', {
+      url: '/file/:id',
+      views: {
+        main: {
+          controller: 'FileUpdateCtrl',
+          templateUrl: 'app/file/update/update.tpl.html'
+        }
+      },
+      data: {
+        requiresLogin: true
       }
-      return Data.Users.insert(user);
-    })
-    .then(function(){
-      return user;
     });
-};
+  });
+
+  module.controller('FileUpdateCtrl', ['$scope', 'auth', function($scope, auth){
+    $scope.profile = auth.profile;
+  }]);
+}(angular));

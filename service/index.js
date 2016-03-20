@@ -19,5 +19,9 @@ const http = require('./http'),
 
 exports.start = function(){
   return data.initialize()
-    .then(http.start);
+    .then(http.start)
+    .catch(function(error) {
+      console.error(error);
+      process.exit(1);
+    });
 };

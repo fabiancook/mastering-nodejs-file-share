@@ -25,7 +25,8 @@
 
     'ngFileShare.home',
     'ngFileShare.login',
-    'ngFileShare.sockets'
+    'ngFileShare.sockets',
+    'ngFileShare.file'
   ]);
 
   module.constant('Config', {

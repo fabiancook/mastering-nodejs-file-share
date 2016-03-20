@@ -13,8 +13,21 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+const Data = require('../../data');
 
-exports.create = require('./create');
-exports.update = require('./update');
-exports.list = require('./list');
-exports.getRevision = require('./get-revision');
+exports = module.exports = function() {
+  return Data.Files.findArray(
+    { },
+    {
+      _id: 1,
+      name: 1,
+      contentType: 1,
+      'user._id': 1,
+      'revisions.key': 1,
+      'revisions.metadata': 1,
+      'revisions.create_date': 1,
+      'revisions.error': 1,
+      'revisions.user._id': 1
+    }
+  );
+};

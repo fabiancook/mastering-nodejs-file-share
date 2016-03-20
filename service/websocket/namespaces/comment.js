@@ -20,7 +20,7 @@ exports = module.exports = function(io) {
 
 exports.listener = function(socket) {
   socket.on('message', function(){
-    console.log(arguments);
+
   });
   socket.emit('message', 'Hello from the server', socket.user);
 };

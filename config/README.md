@@ -24,6 +24,16 @@ The structure for these files are:
   "logging": {
     "stdout_enabled": true,
     "stdout_level": "info"
+  },
+  "aws": {
+    "s3": {
+      "params": {
+        "Bucket": ""
+      },
+      "accessKeyId": "",
+      "secretAccessKey": "",
+      "region": ""
+    }
   }
 }
 ```

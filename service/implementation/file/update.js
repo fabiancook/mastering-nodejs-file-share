@@ -14,34 +14,37 @@
  limitations under the License.
  */
 const Data      = require('../../data'),
-      S3        = require('aws-sdk').S3,
-      Config    = require('config'),
+      S3        = require('./s3'),
       Q         = require('q'),
       MongoDb   = require('mongodb'),
       Stringify = require( 'json-stringify-safe' );
 
-exports = module.exports = function(_id, metadata, stream, user) {
-  return Data.findById(_id)
+exports = module.exports = function(_id, metadata, body, user) {
+  return Data.Files.findById(_id)
     .then(function(document) {
-      return exports.updateDocument(document, metadata, stream, user);
+      return exports.updateDocument(document, metadata, body, user);
     });
 };
 
-exports.updateDocument = function(document, metadata, stream, user) {
+exports.updateDocument = function(document, metadata, body, user) {
   const revision = {
     key: new MongoDb.ObjectId().toString(),
     create_date: new Date(),
     update_date: new Date(),
     user: {
       _id: user._id
-    }
+    },
+    metadata: metadata
   };
   document.revisions_in_progress.push(revision);
-  return Data.update(
+  return Data.Files.update(
     {
       _id: document._id
     },
     {
+      $set: {
+        contentType: metadata.contentType
+      },
       $push: {
         revisions_in_progress: revision
       },
@@ -51,15 +54,18 @@ exports.updateDocument = function(document, metadata, stream, user) {
     }
   )
     .then(function(){
-      return exports.uploadFile(key, stream)
+      return exports.uploadFile(document, revision.key, body)
+    })
+    .then(function(){
+      return document;
     });
 };
 
-exports.uploadFile = function(document, key, stream) {
-  const client = exports.getS3Client();
+exports.uploadFile = function(document, key, body) {
+  const client = S3.getS3Client();
   const params = {
     Key: key,
-    Body: stream
+    Body: body
   };
   const options = {
     partSize: 10 * 1024 * 1024,
@@ -76,6 +82,11 @@ exports.uploadFile = function(document, key, stream) {
     });
 };
 
+exports.getCircularSafe = function(object) {
+  const string = Stringify(object);
+  return JSON.parse(string);
+};
+
 exports.updateDocumentAfterUpload = function(error, result, document, key) {
   const currentRevision = document.revisions_in_progress.find(function(revision) {
     return key === revision.key;
@@ -87,10 +98,10 @@ exports.updateDocumentAfterUpload = function(error, result, document, key) {
     currentRevision.upload_date = new Date();
   }
   currentRevision.update_date = new Date();
-  currentRevision.error = Stringify(error || false);
-  currentRevision.result = Stringify(result || false);
+  currentRevision.error = exports.getCircularSafe(error || false);
+  currentRevision.result = exports.getCircularSafe(result || false);
   document.revisions.push(currentRevision);
-  return Data.update(
+  return Data.Files.update(
     {
       _id: document._id
     },
@@ -104,7 +115,7 @@ exports.updateDocumentAfterUpload = function(error, result, document, key) {
     }
   )
     .then(function(){
-      return Data.findAndModify(
+      return Data.Files.findAndModify(
         {
           _id: document._id,
           revisions_in_progress: {
@@ -124,27 +135,8 @@ exports.updateDocumentAfterUpload = function(error, result, document, key) {
         }
       )
     })
-};
-
-exports.getConfig = function(){
-  if(!Config.has('aws.s3.accessKeyId') || !Config.has('aws.s3.secretAccessKey')) {
-    throw new Error("AWS S3 not configured");
-  }
-  const config = {
-    params: { },
-    accessKeyId: Config.get('aws.s3.accessKeyId'),
-    secretAccessKey: Config.get('aws.s3.secretAccessKey'),
-    region: Config.has('aws.s3.region')
-  };
-
-  if(Config.has('aws.s3.params')) {
-    config.params = Config.get('aws.s3.params');
-  }
-
-  return config;
-};
-
-exports.getS3Client = function() {
-  const config = exports.getConfig();
-  return new S3(config);
+    .then(function(){
+      if(!error) return;
+      throw error;
+    })
 };
