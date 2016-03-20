@@ -154,6 +154,11 @@ exports.find = function(database, collection, query = { }, projection = null, op
   return collection.find(query, projection, options);
 };
 
+exports.findAndModify = function(database, collection, query = {}, sort= null, doc = null, options = null) {
+  collection = exports.getCollection(database, collection);
+  return collection.findAndModify(query, sort, doc, options);
+};
+
 exports.findArray = function(database, collection, query = { }, projection = null, options = null){
   return exports.find(database, collection, query, projection, options)
     .toArray();

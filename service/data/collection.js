@@ -63,6 +63,10 @@ class Collection {
     return data.find(this.database, this.collection, query, projection, options);
   }
 
+  findAndModify(query = {}, sort= null, doc = null, options = null) {
+    return data.findAndModify(this.database, this.collection, query, sort, doc, options);
+  }
+
   findArray(query = { }, projection = null, options = null) {
     return data.findArray(this.database, this.collection, query, projection, options);
   }
